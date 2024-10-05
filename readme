@@ -54,14 +54,16 @@ wget -O $HOME/.0gchain/config/genesis.json https://server-5.itrocket.net/testnet
 wget -O $HOME/.0gchain/config/addrbook.json  https://server-5.itrocket.net/testnet/og/addrbook.json
 ```
 
-# set seeds and peers
+**set seeds and peers**
+```
 SEEDS="8f21742ea5487da6e0697ba7d7b36961d3599567@og-testnet-seed.itrocket.net:47656"
 PEERS="80fa309afab4a35323018ac70a40a446d3ae9caf@og-testnet-peer.itrocket.net:11656,cd51c7a3232757ff2ea0fe733471c8d91a469e44@157.90.32.39:34656,64fe8f2a77c65ec308b5c5623d7c2d4adc21459c@161.97.98.233:12656,82e72f144ab6f64c313cba3a013ea8a10ddd2576@185.239.209.4:12656,04f4c634b27ae9e0fbec9364292eba64dd6d494e@162.55.243.240:34656,e2d5d4c334e91d0742ef5991597d240a86f5b374@84.247.180.98:12656,d7e3a8a1a5187c908eca6390f9078f89564cdadc@184.174.37.215:12656,bb3b698cfd8e5473d586a6dafb85c0fa44a5ce6a@65.109.95.40:26656,aeb3eaa3018a4476364c4848ed285fffb5bacb3d@84.247.180.116:12656,0ae19691f97f5797694c253bc06c79c8b58ea2a8@85.190.242.81:26656,76cf2a2bb3133e34ac48ab4168e0ccb1f18f9e9f@161.97.162.24:12656"
 sed -i -e "/^\[p2p\]/,/^\[/{s/^[[:space:]]*seeds *=.*/seeds = \"$SEEDS\"/}" \
        -e "/^\[p2p\]/,/^\[/{s/^[[:space:]]*persistent_peers *=.*/persistent_peers = \"$PEERS\"/}" $HOME/.0gchain/config/config.toml
+```
 
-
-# set custom ports in app.toml
+**set custom ports in app.toml**
+```
 sed -i.bak -e "s%:1317%:${OG_PORT}317%g;
 s%:8080%:${OG_PORT}080%g;
 s%:9090%:${OG_PORT}090%g;
@@ -69,16 +71,19 @@ s%:9091%:${OG_PORT}091%g;
 s%:8545%:${OG_PORT}545%g;
 s%:8546%:${OG_PORT}546%g;
 s%:6065%:${OG_PORT}065%g" $HOME/.0gchain/config/app.toml
+```
 
-# set custom ports in config.toml file
+**set custom ports in config.toml file**
+```
 sed -i.bak -e "s%:26658%:${OG_PORT}658%g;
 s%:26657%:${OG_PORT}657%g;
 s%:6060%:${OG_PORT}060%g;
 s%:26656%:${OG_PORT}656%g;
 s%^external_address = \"\"%external_address = \"$(wget -qO- eth0.me):${OG_PORT}656\"%;
 s%:26660%:${OG_PORT}660%g" $HOME/.0gchain/config/config.toml
+```
 
-# config pruning
+config pruning
 sed -i -e "s/^pruning *=.*/pruning = \"custom\"/" $HOME/.0gchain/config/app.toml
 sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"100\"/" $HOME/.0gchain/config/app.toml
 sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"50\"/" $HOME/.0gchain/config/app.toml
