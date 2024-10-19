@@ -161,8 +161,11 @@ source $HOME/.bash_profile
 0gchaind status 2>&1 | jq 
 ```
 
-# before creating a validator, you need to fund your wallet and check balance
+**before creating a validator, you need to fund your wallet and check balance**
+```
 0gchaind query bank balances $WALLET_ADDRESS 
+```
+
 Node Sync Status Checker
 #!/bin/bash
 rpc_port=$(grep -m 1 -oP '^laddr = "\K[^"]+' "$HOME/.0gchain/config/config.toml" | cut -d ':' -f 3)
