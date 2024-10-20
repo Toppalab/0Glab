@@ -166,8 +166,9 @@ source $HOME/.bash_profile
 0gchaind query bank balances $WALLET_ADDRESS 
 ```
 
-Node Sync Status Checker
-#!/bin/bash
+**Node Sync Status Checker**
+```
+!/bin/bash
 rpc_port=$(grep -m 1 -oP '^laddr = "\K[^"]+' "$HOME/.0gchain/config/config.toml" | cut -d ':' -f 3)
 while true; do
   local_height=$(curl -s localhost:$rpc_port/status | jq -r '.result.sync_info.latest_block_height')
@@ -188,6 +189,8 @@ while true; do
 
   sleep 5
 done
+```
+
 Create validator
 Moniker
 Identity
